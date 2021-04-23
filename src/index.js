@@ -1,4 +1,4 @@
-import VueNavigation from './VueNavigation'
+import VueNativeNavigation from './VueNativeNavigation'
 import afterRouteEnter from './afterRouteEnter'
 import { getCachedPages, getPreviousCachedPage, clearCachedPages, clearCachedPagesByPath } from './cachedPages'
 import setRouteTransitionName from './setRouteTransitionName'
@@ -6,7 +6,7 @@ import setRouteTransitionName from './setRouteTransitionName'
 const Navigation = {
   install(Vue) {
     Vue.prototype.$navigationBus = new Vue({})
-    Vue.component('vue-navigation', VueNavigation)
+    Vue.component('vue-native-navigation', VueNativeNavigation)
     Vue.mixin(afterRouteEnter)
     Vue.prototype.$getCachedPages = getCachedPages
     Vue.prototype.$getPreviousCachedPage = getPreviousCachedPage

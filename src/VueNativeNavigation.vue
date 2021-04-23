@@ -3,7 +3,7 @@
   import keepRouteAlive from './keep-route-alive'
 
   export default {
-    name: 'vue-navigation',
+    name: 'vue-native-navigation',
     components: {
       keepRouteAlive
     },

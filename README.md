@@ -8,18 +8,18 @@
 引入组件
 ```javascript
 // main.js
-import navigation from 'vue-native-navigation'
+import vueNativeNavigation from 'vue-native-navigation'
 
-Vue.use(navigation)
+Vue.use(vueNativeNavigation)
 ```
 使用组件
 ```vue
 <!--App.vue-->
 <template>
   <div id="app">
-    <vue-navigation>
+    <vue-native-navigation>
       <router-view />
-    </vue-navigation>
+    </vue-native-navigation>
   </div>
 </template>
 ```
