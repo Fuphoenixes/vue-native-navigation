@@ -1,8 +1,8 @@
 {
   "name": "vue-native-navigation",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "开发者先根据实际场景为每个路由设置页面深度，然后组件会在路由跳转时根据对应的页面深度判断是否缓存页面，以及如何展示过渡动画。",
-  "homepage": "",
+  "homepage": "https://github.com/Fuphoenixes/vue-native-navigation",
   "main": "dist/bundle.js",
   "files": [
     "dist"
@@ -25,9 +25,11 @@
   "devDependencies": {
     "autoprefixer": "^8.0.0",
     "babel-core": "^6.26.0",
+    "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-loader": "^7.1.2",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-vue-jsx": "^3.7.0",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-stage-1": "6.5.0",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "css-loader": "^5.2.4",
