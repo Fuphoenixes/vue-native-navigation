@@ -1,90 +1,32 @@
 <script>
-  import userAgent from './userAgent'
   import keepRouteAlive from './keep-route-alive'
+  import { navigation } from './index'
 
   export default {
     name: 'vue-native-navigation',
     components: {
       keepRouteAlive
     },
-    props: {
-      // 是否使用路由过渡动画
-      useRouteTransition: {
-        type: Boolean,
-        default: true
-      },
-      // 使用路由过渡动画时安卓机的最低版本限制 (ios不做限制)
-      routeTransitionLimit: {
-        type: Number,
-        default: 8
-      }
-    },
-    data() {
-      return {
-        transitionName: '',
-        cachedViews: []
-      }
-    },
-    watch: {
-      $route: {
-        handler(to, from) {
-          this._setRouterTransition(to, from)
-          this._changeCachedViews(to)
-        },
-        immediate: true
-      }
+    created() {
+      navigation.setup(this)
     },
     methods: {
-      // 设置路由动画
-      _setRouterTransition(to, from) {
-        if (
-          // 未开启路由过渡动画
-          !this.useRouteTransition ||
-          // 低版本安卓机不开启路由动画，避免卡顿
-          (userAgent === 'Android' && userAgent.version < this.routeTransitionLimit)
-        ) return
-        // 手动设置路由方向
-        if (window.__ROUTER_TRANSITION_NAME__) {
-          this.transitionName = window.__ROUTER_TRANSITION_NAME__.transitionName
-          window.__ROUTER_TRANSITION_NAME__ = undefined
-          return
-        }
-        if (
-          // 首次进入app
-          !from ||
-          // 未设置路由深度
-          !to.meta || !from.meta || typeof to.meta.depth === 'undefined' || typeof from.meta.depth === 'undefined' ||
-          // 路由深度相同
-          to.meta.depth === from.meta.depth
-        ) {
-          this.transitionName = ''
-        } else if (to.meta.depth > from.meta.depth) {
-          this.transitionName = 'slide-left'
-        } else if (to.meta.depth < from.meta.depth) {
-          this.transitionName = 'slide-right'
-        }
-      },
-      // 设置缓存页面， 前进加载后退缓存
-      _changeCachedViews(to) {
-        if (!to.meta || !to.meta.depth) return
-        this.cachedViews = this.cachedViews.filter(route => {
-          return route.meta && route.meta.depth < to.meta.depth
-        })
-        this.cachedViews.push(to)
-      },
       afterEnter() {
-        this.$navigationBus.$emit('after-route-enter')
+        navigation.eventBus.$emit('after-route-enter')
       }
     },
+    // eslint-disable-next-line no-unused-vars
     render(h) {
-      const { cachedViews, transitionName, afterEnter } = this
+      const { afterEnter } = this
+      const { cachedViews, transitionName } = navigation.state
       if (this.$slots.default) {
         const staticClass = this.$slots.default[0].data.staticClass
         this.$slots.default[0].data.staticClass = staticClass ? staticClass + ' router' : 'router'
       }
+      const include = cachedViews.filter(item => item.isAlive).map(item => item.fullPath)
       return (
         <transition name={transitionName} onAfterEnter={afterEnter}>
-          <keep-route-alive include={cachedViews.map(item => item.fullPath)}>
+          <keep-route-alive include={include}>
             {this.$slots.default}
           </keep-route-alive>
         </transition>

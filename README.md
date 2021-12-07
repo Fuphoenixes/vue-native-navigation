@@ -11,6 +11,7 @@
 import vueNativeNavigation from 'vue-native-navigation'
 
 Vue.use(vueNativeNavigation)
+
 ```
 使用组件
 ```vue
@@ -44,13 +45,18 @@ new Router({
 // 从list页进入detail页，会缓存list页重新加载detail页，页面从右往左滑入
 // 从detail页返回list页，会显示缓存的list页，销毁detail页，页面从左往右滑出
 ```
-### props
- - `use-route-transition` <br/>
+### options
+ - `sessionStoreKey` <br/>
+   功能：存储在sessionStore里的key <br/>
+   类型：`String` <br/>
+   默认值: `__VUE_CACHED_VIEWS__`
+   
+ - `useRouteTransition` <br/>
    功能：是否使用路由过渡动画 <br/>
    类型：`Boolean` <br/>
    默认值: `true`
    
- - `route-transition-limit` <br/>
+ - `routeTransitionLimit` <br/>
    功能：使用路由过渡动画时安卓机的最低版本限制 (ios不做限制) <br/>
    类型：`Number` <br/>
    默认值: `8`
@@ -58,23 +64,28 @@ new Router({
 ### API
  - `getCachedPages` <br/>
    功能：获取被缓存的页面的实例数组, 数组中第一个元素为首页，最后一个元素为当前页面。类似小程序的wx.getCurrentPages() <br/>
-   使用方法: `this.$getCachedPages()`
+   使用方法: `this.$navigation.getCachedPages()`
    
  - `getPreviousCachedPage` <br/>
    功能：获取缓存的前一个页面的实例。若不存在则返回undefined <br/>
-   使用方法: `this.$getPreviousCachedPage()`
+   使用方法: `this.$navigation.getPreviousCachedPage()`
  
  - `clearCachedPages` <br/>
    功能：清除所有缓存的页面 <br/>
-   使用方法: `this.$clearCachedPages()`
+   使用方法: `this.$navigation.clearCachedPages()`
    
  - `clearCachedPagesByPath` <br/>
    功能：根据路由地址清除缓存的页面 <br/>
-   使用方法: `this.$clearCachedPagesByPath(path: string | string[], isFullPath: boolean)`
+   使用方法: `this.$navigation.clearCachedPagesByPath(path: string | string[])`
    
  - `setRouteTransitionName` <br/>
    功能：设置下一次路由跳转动画方式 <br/>
-   使用方法: `this.$setRouteTransitionName(transitionName: ''|'slide-left'|'slide-right', important: boolean)`
+   使用方法: `this.$navigation.setRouteTransitionName(transitionName: ''|'slide-left'|'slide-right')`
+   
+ - `forcePush` <br/>
+   功能：强制前进 <br/>
+   使用方法: `this.$navigation.forcePush(route: Route)` 
+
    
 ### Hook
  - `afterRouteEnter` <br/>
