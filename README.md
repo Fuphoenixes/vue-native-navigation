@@ -77,7 +77,11 @@ new Router({
  - `clearCachedPagesByPath` <br/>
    功能：根据路由地址清除缓存的页面 <br/>
    使用方法: `this.$navigation.clearCachedPagesByPath(path: string | string[])`
-   
+
+ - `clearCachedPageByFullPath` <br/>
+   功能：根据完整的路由地址清除缓存的页面 <br/>
+   使用方法: `this.$navigation.clearCachedPageByFullPath(fullPath: string | string[])`   
+
  - `setRouteTransitionName` <br/>
    功能：设置下一次路由跳转动画方式 <br/>
    使用方法: `this.$navigation.setRouteTransitionName(transitionName: ''|'slide-left'|'slide-right')`
