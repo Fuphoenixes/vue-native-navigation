@@ -1,6 +1,6 @@
 ## 路由导航组件
 ### 功能：
-1. 借助`keep-alive`组件实现仿原生app的，路由前进加载后退缓存功能
+1. 改写`keep-alive`组件实现仿原生app的，路由前进加载后退缓存功能
 2. 借助`transition`组件实现仿原生app的，路由前进后退过渡动画
 ### 原理：
 开发者先根据实际场景为每个路由设置页面深度，然后组件会在路由跳转时根据对应的页面深度判断是否缓存页面，以及如何展示过渡动画。
@@ -30,13 +30,11 @@ new Router({
   routes: [
     {
       path: '/list',
-      name: 'list',
       meta: { depth: 1 },
       component: () => import('@/views/list')
     },
     {
       path: '/detail',
-      name: 'detail',
       meta: { depth: 2 },
       component: () => import('@/views/detail')
     },
